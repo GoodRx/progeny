@@ -1,3 +1,6 @@
+import six
+
+
 class _BaseMeta(type):
     def __new__(meta, name, bases, dct):
         # if attr is not explicitly set, force to None (overriding inheritance)
@@ -19,9 +22,9 @@ class _BaseMeta(type):
         super(_BaseMeta, cls).__init__(name, bases, dct)
 
 
+@six.add_metaclass(_BaseMeta)
 class ProgenyBase(object):
     # TODO: Make child objects ABCs
-    __metaclass__ = _BaseMeta
     __progeny_tracked__ = True
     # TODO: Allow the key to be defined from a callable
     __progeny_key__ = None
