@@ -2,7 +2,16 @@
 Progeny
 =======
 
-Simple (but powerful) management for complex class hierarchies
+Simple (but powerful) management for complex class hierarchies.
+
+
+Motivation
+----------
+
+`XYZClass.__subclasses__()`` can be used  get direct children of a class but
+that doesn't return all descendants which is where progency is especially useful,
+because it returns all descendants down the hierarchy chain besides adding other
+tools to mark (track/untrack) descendants.
 
 Examples
 --------
