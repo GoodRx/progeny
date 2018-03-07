@@ -2,32 +2,30 @@ import six
 
 
 class _BaseMeta(type):
-    def __new__(meta, name, bases, dct):
-        # if attr is not explicitly set, force to None (overriding inheritance)
-        dct['__progeny_key__'] = dct.get('__progeny_key__')
-
-        # if attr is not explicitly set, force to True (overriding inheritance)
-        if '__progeny_tracked__' not in dct.keys():
-            dct['__progeny_tracked__'] = True
-
-        return super(_BaseMeta, meta).__new__(meta, name, bases, dct)
-
     def __init__(cls, name, bases, dct):
-
-        is_base = cls.__bases__[0] is not object
-
-        if is_base and cls.__progeny_key__ is None:
-            cls.__progeny_key__ = cls
-
         super(_BaseMeta, cls).__init__(name, bases, dct)
+
+        # ProgenyBase doesn't need any of this functionality
+        if cls.__bases__[0] is object:
+            return
+
+        # do not allow tracking flag to be inherited
+        if '__progeny_tracked__' not in dct.keys():
+            cls.__progeny_tracked__ = True
+
+        # do not allow the key to be inherited
+        if '__progeny_key__' not in dct.keys():
+            cls.__progeny_key__ = cls._get_progeny_key()
 
 
 @six.add_metaclass(_BaseMeta)
 class ProgenyBase(object):
     # TODO: Make child objects ABCs
     __progeny_tracked__ = True
-    # TODO: Allow the key to be defined from a callable
-    __progeny_key__ = None
+
+    @classmethod
+    def _get_progeny_key(cls):
+        return cls
 
     @classmethod
     def tracked_descendants(cls):
