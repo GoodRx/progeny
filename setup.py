@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 setup(
     name='progeny',
     version='0.0.1',
-    description='Simple (but powerful) management for complex class hierarchies',
+    description='Simple but powerful management for complex class hierarchies',
     classifiers=[
         'Development Status :: 3 - Alpha',
         'License :: OSI Approved :: MIT License',

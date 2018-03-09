@@ -9,6 +9,7 @@ name = "pypi"
 
 tox = "*"
 six = "*"
+pycodestyle = "*"
 
 
 [dev-packages]
