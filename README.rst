@@ -8,10 +8,12 @@ Simple (but powerful) management for complex class hierarchies.
 Motivation
 ----------
 
-`XYZClass.__subclasses__()`` can be used  get direct children of a class but
-that doesn't return all descendants which is where progency is especially useful,
-because it returns all descendants down the hierarchy chain besides adding other
-tools to mark (track/untrack) descendants.
+While `XYZClass.__subclasses__()` returns the children of a class, there is no
+built-in way to return all descendants. This is the core of Progeny's purpose.
+
+In addition, Progeny provides tools to help manage complex, deeply nested
+class hierarchies - hiding individual classes, keeping a registry of
+descendants, etc.
 
 Examples
 --------
@@ -21,10 +23,10 @@ Basic Usage
 
 .. code:: python
 
-    from progeny import ProgenyBase
+    import progeny
 
 
-    class NotificationHandler(ProgenyBase):
+    class NotificationHandler(progeny.Base):
         def send_message(self, *args, **kwargs):
             raise RuntimeError
 
@@ -53,10 +55,10 @@ In some cases, it may be useful to prevent descendant classes from being visible
 
 .. code:: python
 
-    from progeny import ProgenyBase
+    from progeny import progeny.Base
 
 
-    class NotificationHandler(ProgenyBase):
+    class NotificationHandler(progeny.Base):
         def send_message(self, *args, **kwargs):
             raise RuntimeError
 
@@ -105,11 +107,11 @@ Progeny makes it easy to choose between descendant classes at runtime:
 
 .. code:: python
 
-    from progeny import ProgenyBase
+    from progeny import progeny.Base
     from my_app.users import UserLevel
 
 
-    class UploadParser(ProgenyBase):
+    class UploadParser(progeny.Base):
         pass
 
 
