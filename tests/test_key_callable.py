@@ -1,7 +1,7 @@
-from progeny import ProgenyBase
+import progeny
 
 
-class Base(ProgenyBase):
+class Base(progeny.Base):
     pass
 
 
@@ -24,7 +24,7 @@ class Delta(Charlie):
 
 
 def test_registry():
-    assert Base._progeny_registry() == {
+    assert Base.progeny_registry == {
         Alpha: Alpha,
         '=Bravo=': Bravo,
         'charlie': Charlie,

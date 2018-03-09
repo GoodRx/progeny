@@ -17,9 +17,26 @@ class _BaseMeta(type):
         if '__progeny_key__' not in dct.keys():
             cls.__progeny_key__ = cls._get_progeny_key()
 
+    @property
+    def progeny(self):
+        descendants = set(self.__subclasses__())
+        for s in self.__subclasses__():
+            descendants |= s.progeny
+        return {
+            each for each in descendants
+            if each.__progeny_tracked__
+        }
+
+    @property
+    def progeny_registry(self):
+        return {
+            each.__progeny_key__: each
+            for each in self.progeny
+        }
+
 
 @six.add_metaclass(_BaseMeta)
-class ProgenyBase(object):
+class Base(object):
     # TODO: Make child objects ABCs
     __progeny_tracked__ = True
 
@@ -28,20 +45,6 @@ class ProgenyBase(object):
         return cls
 
     @classmethod
-    def tracked_descendants(cls):
-        rv = set(cls.__subclasses__())
-        for s in cls.__subclasses__():
-            rv |= s.tracked_descendants()
-        return {each for each in rv if each.__progeny_tracked__}
-
-    @classmethod
-    def _progeny_registry(cls):
-        return {
-            each.__progeny_key__: each
-            for each in cls.tracked_descendants()
-        }
-
-    @classmethod
-    def get_progeny(cls, key):
+    def get_progeny_for(cls, key):
         """Given a key, return the tracked subclassed"""
-        return cls._progeny_registry().get(key)
+        return cls.progeny_registry.get(key)

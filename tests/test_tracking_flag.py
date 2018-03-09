@@ -1,7 +1,7 @@
-from progeny import ProgenyBase
+import progeny
 
 
-class Base(ProgenyBase):
+class Base(progeny.Base):
     pass
 
 
@@ -22,18 +22,18 @@ class Delta(Charlie):
 
 
 def test_tracked_descendants():
-    assert Alpha.tracked_descendants() == {Bravo, Delta}
-    assert Bravo.tracked_descendants() == {Delta}
-    assert Charlie.tracked_descendants() == {Delta, }
-    assert Delta.tracked_descendants() == set()
+    assert Alpha.progeny == {Bravo, Delta}
+    assert Bravo.progeny == {Delta}
+    assert Charlie.progeny == {Delta, }
+    assert Delta.progeny == set()
 
 
 def test_registry():
-    assert Charlie not in Base._progeny_registry().keys()
+    assert Charlie not in Base.progeny_registry.keys()
 
 
-def test_get_progeny():
-    assert Base.get_progeny(Alpha) is Alpha
-    assert Base.get_progeny(Bravo) is Bravo
-    assert Base.get_progeny(Charlie) is None
-    assert Base.get_progeny(Delta) is Delta
+def test_get_progeny_for():
+    assert Base.get_progeny_for(Alpha) is Alpha
+    assert Base.get_progeny_for(Bravo) is Bravo
+    assert Base.get_progeny_for(Charlie) is None
+    assert Base.get_progeny_for(Delta) is Delta
