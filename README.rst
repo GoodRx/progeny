@@ -4,12 +4,16 @@ Progeny
 
 Simple (but powerful) management for complex class hierarchies.
 
+.. image:: https://travis-ci.org/GoodRx/progeny.svg?branch=master
+    :target: https://travis-ci.org/GoodRx/progeny
+
 
 Motivation
 ----------
 
-While `XYZClass.__subclasses__()` returns the children of a class, there is no
-built-in way to return all descendants. This is the core of Progeny's purpose.
+While ``XYZClass.__subclasses__()`` returns the children of a class, there is
+no built-in way to return all descendants. This is the core of Progeny's
+purpose.
 
 In addition, Progeny provides tools to help manage complex, deeply nested
 class hierarchies - hiding individual classes, keeping a registry of
