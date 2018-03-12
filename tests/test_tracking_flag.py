@@ -29,11 +29,11 @@ def test_tracked_descendants():
 
 
 def test_registry():
-    assert Charlie not in Base.progeny_registry.keys()
+    assert Charlie not in Base.progeny.registry.keys()
 
 
 def test_get_progeny_for():
-    assert Base.get_progeny_for(Alpha) is Alpha
-    assert Base.get_progeny_for(Bravo) is Bravo
-    assert Base.get_progeny_for(Charlie) is None
-    assert Base.get_progeny_for(Delta) is Delta
+    assert Base.progeny.get(Alpha) is Alpha
+    assert Base.progeny.get(Bravo) is Bravo
+    assert Base.progeny.get(Charlie) is None
+    assert Base.progeny.get(Delta) is Delta

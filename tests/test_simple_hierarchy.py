@@ -25,22 +25,22 @@ def test_tracked_descendants():
 
 
 def test_registry():
-    assert Alpha.progeny_registry == {
+    assert Alpha.progeny.registry == {
         Bravo: Bravo,
         Charlie: Charlie,
         Delta: Delta,
     }
-    assert Bravo.progeny_registry == {
+    assert Bravo.progeny.registry == {
         Charlie: Charlie,
         Delta: Delta,
     }
-    assert Charlie.progeny_registry == {
+    assert Charlie.progeny.registry == {
         Delta: Delta,
     }
-    assert Delta.progeny_registry == {}
+    assert Delta.progeny.registry == {}
 
 
 def test_get_progeny_for():
-    assert Alpha.get_progeny_for(Bravo) is Bravo
-    assert Alpha.get_progeny_for(Charlie) is Charlie
-    assert Alpha.get_progeny_for(Delta) is Delta
+    assert Alpha.progeny.get(Bravo) is Bravo
+    assert Alpha.progeny.get(Charlie) is Charlie
+    assert Alpha.progeny.get(Delta) is Delta

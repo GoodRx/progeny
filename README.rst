@@ -49,7 +49,7 @@ Now we can iterate over all of the subclasses of ``NotificationHandler``:
 .. code:: python
 
     def send_newsletter():
-        for handler in NotificationHandler.tracked_descendants():
+        for handler in NotificationHandler.progeny:
             handler.send_message('Your attention, please!')
 
 Omitting descendant classes
@@ -93,7 +93,7 @@ construction will be ignored by Progeny. It's descendant classes are unaffected:
 
 .. code:: python
 
-    NotificationHandler.tracked_descendants()
+    NotificationHandler.progeny
     # {CustomerOneNotificationHandler, CustomerTwoNotificationHandler}
 
 This can be especially handy to conditionally track subclasses based on config
@@ -135,4 +135,4 @@ Progeny makes it easy to choose between descendant classes at runtime:
 .. code:: python
 
     def parse_upload(data):
-        UploadParser.get_progeny(session.user.level).parse_upload(data)
+        UploadParser.progeny.get(session.user.level).parse_upload(data)

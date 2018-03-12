@@ -1,6 +1,22 @@
 import six
 
 
+class ProgenySet(set):
+    def __init__(self, base_cls, *args, **kwargs):
+        super(ProgenySet, self).__init__(*args, **kwargs)
+        self._base_cls = base_cls
+
+    @property
+    def registry(self):
+        return {
+            each.__progeny_key__: each
+            for each in self
+        }
+
+    def get(self, key):
+        return self.registry.get(key)
+
+
 class _BaseMeta(type):
     def __init__(cls, name, bases, dct):
         super(_BaseMeta, cls).__init__(name, bases, dct)
@@ -22,17 +38,13 @@ class _BaseMeta(type):
         descendants = set(self.__subclasses__())
         for s in self.__subclasses__():
             descendants |= s.progeny
-        return {
-            each for each in descendants
-            if each.__progeny_tracked__
-        }
-
-    @property
-    def progeny_registry(self):
-        return {
-            each.__progeny_key__: each
-            for each in self.progeny
-        }
+        return ProgenySet(
+            self,
+            {
+                each for each in descendants
+                if each.__progeny_tracked__
+            }
+        )
 
 
 @six.add_metaclass(_BaseMeta)
@@ -43,8 +55,3 @@ class Base(object):
     @classmethod
     def _get_progeny_key(cls):
         return cls
-
-    @classmethod
-    def get_progeny_for(cls, key):
-        """Given a key, return the tracked subclassed"""
-        return cls.progeny_registry.get(key)

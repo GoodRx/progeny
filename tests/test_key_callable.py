@@ -24,7 +24,7 @@ class Delta(Charlie):
 
 
 def test_registry():
-    assert Base.progeny_registry == {
+    assert Base.progeny.registry == {
         Alpha: Alpha,
         '=Bravo=': Bravo,
         'charlie': Charlie,
