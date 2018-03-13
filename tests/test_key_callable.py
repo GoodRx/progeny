@@ -23,7 +23,7 @@ class Delta(Charlie):
     pass
 
 
-def test_registry():
+def test_progeny_registry():
     assert Base.progeny.registry == {
         Alpha: Alpha,
         '=Bravo=': Bravo,

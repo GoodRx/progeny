@@ -22,14 +22,14 @@ class Delta(Charlie):
     __progeny_key__ = 'delta'
 
 
-def test_tracked_descendants():
+def test_progeny():
     assert Alpha.progeny == {Bravo, Charlie, Delta}
     assert Bravo.progeny == {Charlie, Delta}
     assert Charlie.progeny == {Delta, }
     assert Delta.progeny == set()
 
 
-def test_registry():
+def test_progeny_registry():
     assert Base.progeny.registry == {
         'alpha': Alpha,
         'bravo': Bravo,
@@ -38,7 +38,7 @@ def test_registry():
     }
 
 
-def test_get_progeny_for():
+def test_progeny_get():
     assert Base.progeny.get('alpha') is Alpha
     assert Base.progeny.get('bravo') is Bravo
     assert Base.progeny.get(Charlie) is Charlie
