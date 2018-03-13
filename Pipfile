@@ -10,9 +10,11 @@ name = "pypi"
 tox = "*"
 six = "*"
 
+
 [dev-packages]
 
 pytest = "*"
 tox = "*"
 setuptools = "*"
-flake8 = "*"
+"flake8" = "*"
+isort = "*"
