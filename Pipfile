@@ -9,16 +9,10 @@ name = "pypi"
 
 tox = "*"
 six = "*"
-pycodestyle = "*"
-
 
 [dev-packages]
 
 pytest = "*"
 tox = "*"
 setuptools = "*"
-
-
-[requires]
-
-python_version = "2.7"
+flake8 = "*"
