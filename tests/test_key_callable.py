@@ -23,10 +23,11 @@ class Delta(Charlie):
     pass
 
 
-def test_progeny_registry():
-    assert Base.progeny.registry == {
+def test_progeny():
+    assert Base.progeny == {
         Alpha: Alpha,
         '=Bravo=': Bravo,
         'charlie': Charlie,
         '=Delta=': Delta,
     }
+    assert len(Base.progeny) == 4

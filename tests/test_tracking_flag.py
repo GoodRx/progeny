@@ -22,14 +22,17 @@ class Delta(Charlie):
 
 
 def test_progeny():
-    assert Alpha.progeny == {Bravo, Delta}
-    assert Bravo.progeny == {Delta}
-    assert Charlie.progeny == {Delta, }
-    assert Delta.progeny == set()
+    assert Alpha.progeny == {  # pragma: no branch
+        cls: cls
+        for cls in (Bravo, Delta)
+    }
+    assert Bravo.progeny == {Delta: Delta}
+    assert Charlie.progeny == {Delta: Delta}
+    assert Delta.progeny == {}
 
 
-def test_progeny_registry():
-    assert Charlie not in Base.progeny.registry.keys()
+def test_progeny_untracked():
+    assert Charlie not in Base.progeny
 
 
 def test_progeny_get():

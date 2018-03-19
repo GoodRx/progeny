@@ -1,20 +1,20 @@
+import collections
+
 import six
 
 
-class ProgenySet(set):
-    def __init__(self, base_cls, *args, **kwargs):
-        super(ProgenySet, self).__init__(*args, **kwargs)
-        self._base_cls = base_cls
+class ProgenyMapping(collections.Mapping):
+    def __init__(self, data):
+        self._data = data
 
-    @property
-    def registry(self):
-        return {
-            each.__progeny_key__: each
-            for each in self
-        }
+    def __getitem__(self, key):
+        return self._data[key]
 
-    def get(self, key):
-        return self.registry.get(key)
+    def __iter__(self):
+        return iter(self._data)
+
+    def __len__(self):
+        return len(self._data)
 
 
 class _BaseMeta(type):
@@ -37,11 +37,11 @@ class _BaseMeta(type):
     def progeny(self):
         descendants = set(self.__subclasses__())
         for s in self.__subclasses__():
-            descendants |= s.progeny
-        return ProgenySet(
-            self,
+            descendants |= set(s.progeny.values())
+        return ProgenyMapping(
             {
-                each for each in descendants
+                each.__progeny_key__: each
+                for each in descendants
                 if each.__progeny_tracked__
             }
         )

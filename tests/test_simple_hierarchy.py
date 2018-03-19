@@ -18,26 +18,19 @@ class Delta(Charlie):
 
 
 def test_progeny():
-    assert Alpha.progeny == {Bravo, Charlie, Delta}
-    assert Bravo.progeny == {Charlie, Delta}
-    assert Charlie.progeny == {Delta, }
-    assert Delta.progeny == set()
-
-
-def test_progeny_registry():
-    assert Alpha.progeny.registry == {
+    assert Alpha.progeny == {
         Bravo: Bravo,
         Charlie: Charlie,
         Delta: Delta,
     }
-    assert Bravo.progeny.registry == {
+    assert Bravo.progeny == {
         Charlie: Charlie,
         Delta: Delta,
     }
-    assert Charlie.progeny.registry == {
+    assert Charlie.progeny == {
         Delta: Delta,
     }
-    assert Delta.progeny.registry == {}
+    assert Delta.progeny == {}
 
 
 def test_progeny_get():

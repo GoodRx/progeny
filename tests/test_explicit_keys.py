@@ -1,3 +1,5 @@
+import pytest
+
 import progeny
 
 
@@ -23,19 +25,50 @@ class Delta(Charlie):
 
 
 def test_progeny():
-    assert Alpha.progeny == {Bravo, Charlie, Delta}
-    assert Bravo.progeny == {Charlie, Delta}
-    assert Charlie.progeny == {Delta, }
-    assert Delta.progeny == set()
+    assert Alpha.progeny == {
+        'bravo': Bravo,
+        Charlie: Charlie,
+        'delta': Delta,
+    }
+    assert Bravo.progeny == {
+        Charlie: Charlie,
+        'delta': Delta,
+    }
+    assert Charlie.progeny == {
+        'delta': Delta,
+    }
+    assert Delta.progeny == {}
 
 
-def test_progeny_registry():
-    assert Base.progeny.registry == {
+def test_base_progeny():
+    assert Base.progeny == {
         'alpha': Alpha,
         'bravo': Bravo,
         Charlie: Charlie,
         'delta': Delta,
     }
+
+
+def test_base_progeny_items():
+    def sort_key(keyval):
+        _, val = keyval
+        return str(val)
+
+    assert sorted(Base.progeny.items(), key=sort_key) == sorted([
+        ('alpha', Alpha),
+        ('bravo', Bravo),
+        (Charlie, Charlie),
+        ('delta', Delta),
+    ], key=sort_key)
+
+
+def test_progeny_immutable():
+    with pytest.raises(TypeError):
+        Base.progeny['new'] = 1
+
+    for key in Base.progeny:
+        with pytest.raises(TypeError):
+            del Base.progeny[key]
 
 
 def test_progeny_get():
