@@ -140,5 +140,7 @@ Progeny makes it easy to choose between descendant classes at runtime:
 Publishing to PyPI
 ------------------
 
-`python setup.py sdist bdist_wheel`
-`twine upload "dist/*"`
+.. code:: bash
+
+    python setup.py sdist bdist_wheel
+    twine upload "dist/*"
