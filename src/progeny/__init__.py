@@ -1,9 +1,7 @@
-import collections
-
-import six
+from collections.abc import Mapping
 
 
-class ProgenyMapping(collections.Mapping):
+class ProgenyMapping(Mapping):
     def __init__(self, data):
         self._data = data
 
@@ -19,7 +17,7 @@ class ProgenyMapping(collections.Mapping):
 
 class _BaseMeta(type):
     def __init__(cls, name, bases, dct):
-        super(_BaseMeta, cls).__init__(name, bases, dct)
+        super().__init__(name, bases, dct)
 
         # ProgenyBase doesn't need any of this functionality
         if cls.__bases__[0] is object:
@@ -47,8 +45,7 @@ class _BaseMeta(type):
         )
 
 
-@six.add_metaclass(_BaseMeta)
-class Base(object):
+class Base(metaclass=_BaseMeta):
     # TODO: Make child objects ABCs
     __progeny_tracked__ = True
 

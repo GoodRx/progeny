@@ -6,12 +6,12 @@ with open('README.rst') as f:
 
 setup(
     name='progeny',
-    version='0.1.1',
+    version='0.2.0',
     description='Simple but powerful management for complex class hierarchies',
     long_description=readme,
     url='https://github.com/GoodRx/progeny',
-    author='Lyndsy Simon',
-    author_email='lyndsy@goodrx.com',
+    author='Andy Freeland',
+    author_email='andy@goodrx.com',
     license='MIT',
     classifiers=(
         'Development Status :: 4 - Beta',
@@ -19,10 +19,9 @@ setup(
         'Natural Language :: English',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy',
     ),
@@ -30,7 +29,4 @@ setup(
     package_dir={
         '': 'src',
     },
-    install_requires=(
-        'six',
-    ),
 )
